@@ -1,8 +1,8 @@
-import {
-  BasicFunctions,
-  // BasicTypes,
-  // ObjectLiterals,
-} from './typescript';
+import { Counter } from './components';
+import // BasicFunctions,
+// BasicTypes,
+// ObjectLiterals,
+'./typescript';
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <h1>Hola React con TypeScript</h1>
       {/* <BasicTypes /> */}
       {/* <ObjectLiterals /> */}
-      <BasicFunctions />
+      {/* <BasicFunctions /> */}
+      <Counter />
     </main>
   );
 }
