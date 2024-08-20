@@ -1,6 +1,7 @@
 import {
+  BasicFunctions,
   // BasicTypes,
-  ObjectLiterals,
+  // ObjectLiterals,
 } from './typescript';
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <main>
       <h1>Hola React con TypeScript</h1>
       {/* <BasicTypes /> */}
-      <ObjectLiterals />
+      {/* <ObjectLiterals /> */}
+      <BasicFunctions />
     </main>
   );
 }
