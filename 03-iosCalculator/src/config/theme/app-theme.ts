@@ -32,4 +32,23 @@ export const styles = StyleSheet.create({
     textAlign: 'right',
     fontWeight: '300',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 18,
+    gap: 12,
+  },
+  button: {
+    height: 70,
+    width: 70,
+    backgroundColor: colors.darkGray,
+    borderRadius: 100,
+    justifyContent: 'center',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: colors.textPrimary,
+    fontWeight: '300',
+  },
 });
