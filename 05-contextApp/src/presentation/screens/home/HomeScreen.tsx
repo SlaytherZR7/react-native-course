@@ -4,7 +4,7 @@ import {styles} from '../../../config/app-theme';
 export const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>HomeScreen</Text>
+      <Text style={{color: 'black'}}>HomeScreen</Text>
     </View>
   );
 };

@@ -4,7 +4,7 @@ import {styles} from '../../../config/app-theme';
 export const SettingsScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>SettingsScreen</Text>
+      <Text style={{color: 'black'}}>SettingsScreen</Text>
     </View>
   );
 };
