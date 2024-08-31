@@ -7,8 +7,16 @@ import {HorizontalCarousel} from '../../components/movies/HorizontalCarousel';
 
 export const HomeScreen = () => {
   const {top} = useSafeAreaInsets();
-  const {isLoading, nowPlaying, popular, topRated, upcoming, popularNextPage} =
-    useMovies();
+  const {
+    isLoading,
+    nowPlaying,
+    popular,
+    topRated,
+    upcoming,
+    popularNextPage,
+    topRatedNextPage,
+    upcomingNextPage,
+  } = useMovies();
 
   if (isLoading) {
     return (
@@ -30,9 +38,17 @@ export const HomeScreen = () => {
           loadNextPage={popularNextPage}
         />
         {/* Peliculas Top Rated */}
-        <HorizontalCarousel movies={topRated} title="Mejor puntuadas" />
+        <HorizontalCarousel
+          movies={topRated}
+          title="Mejor puntuadas"
+          loadNextPage={topRatedNextPage}
+        />
         {/* Peliculas proximamente */}
-        <HorizontalCarousel movies={upcoming} title="Próximamente" />
+        <HorizontalCarousel
+          movies={upcoming}
+          title="Próximamente"
+          loadNextPage={upcomingNextPage}
+        />
       </View>
     </ScrollView>
   );
