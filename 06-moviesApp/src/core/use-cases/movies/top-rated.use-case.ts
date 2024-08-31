@@ -7,7 +7,7 @@ export const moviesTopRatedUseCase = async (
   fetcher: HttpAdapter,
 ): Promise<Movie[]> => {
   try {
-    const topRated = await fetcher.get<MovieDBMoviesResponse>('/top-rated');
+    const topRated = await fetcher.get<MovieDBMoviesResponse>('/top_rated');
     return topRated.results.map(MovieMapper.fromMovieDBResultToEntity);
   } catch (e) {
     console.error(e);
