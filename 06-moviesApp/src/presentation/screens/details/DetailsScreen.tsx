@@ -17,7 +17,11 @@ export const DetailsScreen = ({route}: Props) => {
   return (
     <View>
       {/* Header */}
-      <MovieHeader movie={movie!} />
+      <MovieHeader
+        originalTitle={movie!.originalTitle}
+        poster={movie!.poster}
+        title={movie!.title}
+      />
       {/* Details */}
     </View>
   );
