@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {ActivityIndicator, FlatList, Image, View} from 'react-native';
+import {FadeInImage} from '../../components';
 
 export const InfiniteScrollScreen = () => {
   const [numbers, setNumbers] = useState([0, 1, 2, 3, 4, 5]);
@@ -35,8 +36,8 @@ interface ListItemProps {
 
 const ListItem = ({number}: ListItemProps) => {
   return (
-    <Image
-      source={{uri: `https://picsum.photos/id/${number}/500/400`}}
+    <FadeInImage
+      uri={`https://picsum.photos/id/${number}/500/400`}
       style={{height: 400, width: '100%'}}
     />
   );

@@ -6,3 +6,4 @@ export * from './ui/Card';
 export * from './ui/MenuItem';
 export * from './ui/Separator';
 export * from './ui/Subtitle';
+export * from './ui/FadeInImage';
