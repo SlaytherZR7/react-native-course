@@ -16,80 +16,56 @@ export const TextInputScreen = () => {
     email: '',
     phone: '',
   });
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView>
         <CustomView margin>
-          <Title text="Text inputs" safe />
+          <Title text="Text Inputs" safe />
+
           <Card>
             <TextInput
               style={globalStyles.input}
               placeholder="Nombre completo"
-              autoCapitalize="words"
-              placeholderTextColor={'#999'}
-              cursorColor={'#000'}
+              autoCapitalize={'words'}
               autoCorrect={false}
               onChangeText={value => setForm({...form, name: value})}
             />
             <TextInput
               style={globalStyles.input}
-              placeholder="Correo electronico"
-              autoCapitalize="none"
+              placeholder="Correo electrónico"
+              autoCapitalize={'none'}
               autoCorrect={false}
               keyboardType="email-address"
-              placeholderTextColor={'#999'}
-              cursorColor={'#000'}
               onChangeText={value => setForm({...form, email: value})}
             />
             <TextInput
               style={globalStyles.input}
-              placeholder="Telefono"
-              placeholderTextColor={'#999'}
-              cursorColor={'#000'}
+              placeholder="Teléfono"
               keyboardType="phone-pad"
               onChangeText={value => setForm({...form, phone: value})}
             />
           </Card>
+          <View style={{height: 10}} />
           <Card>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
-            <Text style={{color: 'black'}}>
-              {JSON.stringify(form, null, 2)}
-            </Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
+            <Text>{JSON.stringify(form, null, 2)}</Text>
           </Card>
           <View style={{height: 20}} />
           <Card>
             <TextInput
               style={globalStyles.input}
-              placeholder="Telefono"
-              placeholderTextColor={'#999'}
-              cursorColor={'#000'}
+              placeholder="Teléfono"
               keyboardType="phone-pad"
               onChangeText={value => setForm({...form, phone: value})}
             />

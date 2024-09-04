@@ -1,8 +1,9 @@
+import {useContext} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {colors} from '../../../config/theme/theme';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {Separator} from './Separator';
+import {ThemeContext} from '../../context/ThemeContext';
 
 interface Props {
   name: string;
@@ -20,6 +21,7 @@ export const MenuItem = ({
   isLast = false,
 }: Props) => {
   const navigation = useNavigation<any>();
+  const {colors} = useContext(ThemeContext);
 
   return (
     <>
@@ -42,18 +44,18 @@ export const MenuItem = ({
           <Icon
             name={icon}
             size={25}
-            color={colors.primary}
             style={{marginRight: 10}}
+            color={colors.primary}
           />
           <Text style={{color: colors.text}}>{name}</Text>
           <Icon
             name="chevron-forward-outline"
             size={25}
-            color={colors.primary}
-            style={{marginLeft: 'auto'}}
+            style={{marginLeft: 'auto', color: colors.primary}}
           />
         </View>
       </Pressable>
+
       {!isLast && <Separator />}
     </>
   );

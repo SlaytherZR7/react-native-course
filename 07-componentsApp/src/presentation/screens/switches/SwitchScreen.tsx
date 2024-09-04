@@ -1,9 +1,11 @@
 import {useState} from 'react';
-import {StyleSheet} from 'react-native';
-import {CustomView} from '../../components/ui/CustomView';
-import {Card} from '../../components/ui/Card';
-import {CustomSwitch} from '../../components/ui/CustomSwitch';
-import {Separator} from '../../components/ui/Separator';
+import {
+  Card,
+  CustomSwitch,
+  CustomView,
+  Separator,
+  Title,
+} from '../../components';
 
 export const SwitchScreen = () => {
   const [state, setState] = useState({
@@ -13,12 +15,14 @@ export const SwitchScreen = () => {
   });
 
   return (
-    <CustomView>
+    <CustomView style={{paddingHorizontal: 10}}>
+      <Title text="Switches" safe />
+
       <Card>
         <CustomSwitch
           isOn={state.isActive}
           onChange={value => setState({...state, isActive: value})}
-          text="¿Está Activo?"
+          text="¿Está activo?"
         />
         <Separator />
         <CustomSwitch
@@ -30,17 +34,9 @@ export const SwitchScreen = () => {
         <CustomSwitch
           isOn={state.isHappy}
           onChange={value => setState({...state, isHappy: value})}
-          text="¿Está feliz?"
+          text="¿Es feliz?"
         />
       </Card>
     </CustomView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

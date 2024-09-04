@@ -1,7 +1,8 @@
+import {useContext} from 'react';
 import {SectionList, Text, useWindowDimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Card, CustomView, Subtitle, Title} from '../../components';
-import {colors} from '../../../config/theme/theme';
+import {Card, CustomView, Separator, Subtitle, Title} from '../../components';
+import {ThemeContext} from '../../context/ThemeContext';
 
 interface Houses {
   title: string;
@@ -86,18 +87,20 @@ const houses: Houses[] = [
 ];
 
 export const CustomSectionListScreen = () => {
+  const {colors} = useContext(ThemeContext);
   const {height} = useWindowDimensions();
   const {top} = useSafeAreaInsets();
 
   return (
     <CustomView margin>
       <Title text="Lista de personajes" safe />
+
       <Card>
         <SectionList
           sections={houses}
           keyExtractor={item => item}
           renderItem={({item}) => (
-            <Text style={{marginVertical: 2, color: 'black'}}>{item}</Text>
+            <Text style={{color: colors.text, marginVertical: 2}}>{item}</Text>
           )}
           renderSectionHeader={({section}) => (
             <Subtitle
@@ -106,10 +109,15 @@ export const CustomSectionListScreen = () => {
             />
           )}
           stickySectionHeadersEnabled
+          SectionSeparatorComponent={Separator}
           ListHeaderComponent={() => <Title text="Personajes" />}
-          ListFooterComponent={() => <Title text="Fin de la lista" />}
+          ListFooterComponent={() => (
+            <Title text={`Secciones: ${houses.length}`} />
+          )}
           showsVerticalScrollIndicator={false}
-          style={{height: height - top - 120}}
+          style={{
+            height: height - top - 120,
+          }}
         />
       </Card>
     </CustomView>

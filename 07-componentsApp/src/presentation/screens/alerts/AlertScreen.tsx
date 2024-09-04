@@ -1,62 +1,88 @@
+import {useContext} from 'react';
 import {Alert, View} from 'react-native';
 import {globalStyles} from '../../../config/theme/theme';
-import {Button, CustomView, Title} from '../../components';
+import {ThemeContext} from '../../context/ThemeContext';
 import {showPrompt} from '../../../config/theme/adapters/prompt.adapter.';
+import {Button, CustomView, Title} from '../../components';
 
 export const AlertScreen = () => {
+  const {isDark} = useContext(ThemeContext);
+
   const createTwoButtonAlert = () => {
-    Alert.alert('Alert Title', 'My Alert Msg', [
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
       {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
+        userInterfaceStyle: isDark ? 'dark' : 'light',
       },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
+    );
   };
 
-  const createThreeButtonAlert = () => {
-    Alert.alert('Alert Title', 'My Alert Msg', [
+  const createThreeButtonAlert = () =>
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+        {
+          text: 'Ask me later',
+          onPress: () => console.log('Ask me later pressed'),
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'destructive',
+        },
+      ],
       {
-        text: 'Ask me later',
-        onPress: () => console.log('Ask me later pressed'),
+        cancelable: true,
+        onDismiss() {
+          console.log('onDismiss');
+        },
+        userInterfaceStyle: isDark ? 'dark' : 'light',
       },
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
-  };
+    );
 
   const onShowPrompt = () => {
-    // Código adaptado
     showPrompt({
-      title: 'Correo electronico',
-      subtitle: 'Enter your email to claim your $1.5B in lottery winnings',
-      buttons: [{text: 'OK', onPress: () => console.log('ok')}],
-      placeholder: 'placeholder',
+      title: 'Lorem Ipsum',
+      subtitle: 'Nostrud qui duis officia dolor enim.',
+      buttons: [{text: 'Ok', onPress: () => console.log('ok')}],
+      placeholder: 'Placeholder',
     });
-    // Código nativo
+
+    // ! Código nativo
     // Alert.prompt(
     //   'Correo electronico',
-    //   'Enter your email to claim your $1.5B in lottery winnings',
-    //   text => console.log('You entered ' + text),
+    //   'Enim commodo ut amet esse aliqua.',
+    //   (valor: string) => console.log({valor}),
     //   'secure-text',
-    //   'default value',
-    //   'number-pad',
+    //   'Soy el valor por defecto',
+    //   'number-pad'
     // );
   };
 
   return (
     <CustomView style={globalStyles.globalMargin}>
-      <Title text="Alertas safe"></Title>
-      <View style={{gap: 10, marginTop: 10}}>
-        <Button text="Alerta - 2 Botones" onPress={createTwoButtonAlert} />
-        <Button text="Alerta - 3 Botones" onPress={createThreeButtonAlert} />
-        <Button text="Prompt" onPress={onShowPrompt} />
-      </View>
+      <Title safe text="Alertas" />
+
+      <Button text="Alerta - 2 Botones" onPress={createTwoButtonAlert} />
+
+      <View style={{height: 10}} />
+
+      <Button text="Alerta - 3 Botones" onPress={createThreeButtonAlert} />
+
+      <View style={{height: 10}} />
+
+      <Button text="Prompt - Input" onPress={onShowPrompt} />
     </CustomView>
   );
 };
