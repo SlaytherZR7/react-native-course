@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {Image, StyleProp, ImageStyle} from 'react-native';
-import {ThemeContext} from '../../../context/ThemeContext';
+import {ThemeContext} from '../../context/ThemeContext';
 
 interface Props {
   style?: StyleProp<ImageStyle>;
