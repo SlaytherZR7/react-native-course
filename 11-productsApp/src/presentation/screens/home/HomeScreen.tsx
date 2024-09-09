@@ -1,18 +1,20 @@
-import {Button, Layout, Text} from '@ui-kitten/components';
-import {MyIcon} from '../../components/ui/MyIcon';
+import {Layout, Text} from '@ui-kitten/components';
 import {useAuthStore} from '../../store/auth/useAuthStore';
+import {useQuery} from '@tanstack/react-query';
+import {getProductsByPage} from '../../../actions/products/get-products-by-page';
 
 export const HomeScreen = () => {
   const {logout} = useAuthStore();
 
+  const {isLoading, data: products = []} = useQuery({
+    queryKey: ['producrs', 'infinite'],
+    staleTime: 1000 * 60 * 60,
+    queryFn: () => getProductsByPage(0),
+  });
+
   return (
     <Layout>
-      <Text>HomeScreen</Text>
-      <Button
-        accessoryRight={<MyIcon name="log-out-outline" />}
-        onPress={logout}>
-        Logout
-      </Button>
+      <Text>{JSON.stringify(products, null, 2)}</Text>
     </Layout>
   );
 };
