@@ -20,6 +20,7 @@ import {
   Size,
 } from '../../../infrastructure/interfaces/teslo-products.response';
 import {MyIcon} from '../../components/ui/MyIcon';
+import {Formik} from 'formik';
 
 const sizes: Size[] = [Size.Xs, Size.S, Size.M, Size.L, Size.Xl, Size.Xxl];
 const gender: Gender[] = [Gender.Kid, Gender.Men, Gender.Women, Gender.Unisex];
@@ -45,102 +46,124 @@ export const ProductScreen = ({route}: Props) => {
   }
 
   return (
-    <MainLayout title={product.title} subtitle={`Precio: ${product.price}`}>
-      <ScrollView style={{flex: 1}}>
-        <Layout>
-          <FlatList
-            data={product.images}
-            keyExtractor={item => item}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <FadeInImage
-                uri={item}
-                style={{width: 300, height: 300, marginHorizontal: 7}}
+    <Formik initialValues={product} onSubmit={values => console.log(values)}>
+      {({handleChange, handleSubmit, values, errors, setFieldValue}) => (
+        <MainLayout title={values.title} subtitle={`Precio: ${values.price}`}>
+          <ScrollView style={{flex: 1}}>
+            <Layout>
+              <FlatList
+                data={values.images}
+                keyExtractor={item => item}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                renderItem={({item}) => (
+                  <FadeInImage
+                    uri={item}
+                    style={{width: 300, height: 300, marginHorizontal: 7}}
+                  />
+                )}
               />
-            )}
-          />
-        </Layout>
-        {/* Formulario */}
-        <Layout style={{marginHorizontal: 20}}>
-          <Input
-            label="Titulo"
-            value={product.title}
-            style={{marginVertical: 5}}
-          />
-          <Input
-            label="Slug"
-            value={product.slug}
-            style={{marginVertical: 5}}
-          />
-          <Input
-            label="Descripción"
-            value={product.description}
-            multiline
-            numberOfLines={5}
-            style={{marginVertical: 5}}
-          />
-        </Layout>
-        {/* Precio e inventario */}
-        <Layout
-          style={{
-            marginHorizontal: 15,
-            marginVertical: 5,
-            flexDirection: 'row',
-            gap: 10,
-          }}>
-          <Input
-            label="Precio"
-            value={product.price.toString()}
-            style={{flex: 1}}
-          />
-          <Input
-            label="Inventario"
-            value={product.stock.toString()}
-            style={{flex: 1}}
-          />
-        </Layout>
-        {/* Selectores */}
-        <ButtonGroup
-          style={{margin: 2, marginTop: 30, marginHorizontal: 15}}
-          size="small"
-          appearance="outline">
-          {sizes.map(size => (
-            <Button
-              key={size}
+            </Layout>
+            {/* Formulario */}
+            <Layout style={{marginHorizontal: 20}}>
+              <Input
+                label="Titulo"
+                value={values.title}
+                onChangeText={handleChange('title')}
+                style={{marginVertical: 5}}
+              />
+              <Input
+                label="Slug"
+                value={values.slug}
+                onChangeText={handleChange('slug')}
+                style={{marginVertical: 5}}
+              />
+              <Input
+                label="Descripción"
+                value={values.description}
+                onChangeText={handleChange('description')}
+                multiline
+                numberOfLines={5}
+                style={{marginVertical: 5}}
+              />
+            </Layout>
+            {/* Precio e inventario */}
+            <Layout
               style={{
-                flex: 1,
-                backgroundColor: true ? theme['color-primary-200'] : undefined,
+                marginHorizontal: 15,
+                marginVertical: 5,
+                flexDirection: 'row',
+                gap: 10,
               }}>
-              {size}
-            </Button>
-          ))}
-        </ButtonGroup>
+              <Input
+                label="Precio"
+                value={values.price.toString()}
+                onChangeText={handleChange('price')}
+                style={{flex: 1}}
+              />
+              <Input
+                label="Inventario"
+                value={values.stock.toString()}
+                onChangeText={handleChange('stock')}
+                style={{flex: 1}}
+              />
+            </Layout>
+            {/* Selectores */}
+            <ButtonGroup
+              style={{margin: 2, marginTop: 30, marginHorizontal: 15}}
+              size="small"
+              appearance="outline">
+              {sizes.map(size => (
+                <Button
+                  onPress={() =>
+                    setFieldValue(
+                      'sizes',
+                      values.sizes.includes(size)
+                        ? values.sizes.filter(s => s !== size)
+                        : [...values.sizes, size],
+                    )
+                  }
+                  key={size}
+                  style={{
+                    flex: 1,
+                    backgroundColor: values.sizes.includes(size)
+                      ? theme['color-primary-200']
+                      : undefined,
+                  }}>
+                  {size}
+                </Button>
+              ))}
+            </ButtonGroup>
 
-        <ButtonGroup
-          style={{margin: 2, marginTop: 30, marginHorizontal: 15}}
-          size="small"
-          appearance="outline">
-          {gender.map(gender => (
+            <ButtonGroup
+              style={{margin: 2, marginTop: 30, marginHorizontal: 15}}
+              size="small"
+              appearance="outline">
+              {gender.map(gender => (
+                <Button
+                  onPress={() => setFieldValue('gender', gender)}
+                  key={gender}
+                  style={{
+                    flex: 1,
+                    backgroundColor: values.gender.startsWith(gender)
+                      ? theme['color-primary-200']
+                      : undefined,
+                  }}>
+                  {gender}
+                </Button>
+              ))}
+            </ButtonGroup>
+            {/* Botón de guardar */}
             <Button
-              key={gender}
-              style={{
-                flex: 1,
-                backgroundColor: true ? theme['color-primary-200'] : undefined,
-              }}>
-              {gender}
+              accessoryLeft={<MyIcon name="save-outline" white />}
+              style={{margin: 15}}
+              onPress={() => console.log('Guardar')}>
+              Guardar
             </Button>
-          ))}
-        </ButtonGroup>
-        {/* Botón de guardar */}
-        <Button
-          accessoryLeft={<MyIcon name="save-outline" white />}
-          style={{margin: 15}}
-          onPress={() => console.log('Guardar')}>
-          Guardar
-        </Button>
-        <Layout style={{height: 200}} />
-      </ScrollView>
-    </MainLayout>
+            <Layout style={{height: 200}} />
+          </ScrollView>
+        </MainLayout>
+      )}
+    </Formik>
   );
 };
