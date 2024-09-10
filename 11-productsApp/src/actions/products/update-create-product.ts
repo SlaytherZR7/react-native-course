@@ -3,13 +3,14 @@ import {tesloApi} from '../../config/api/tesloApi';
 import {Product} from '../../domain/entities/product';
 
 export const updateCreateProduct = (product: Partial<Product>) => {
-  product.stock = Number(product.stock);
-  product.price = Number(product.price);
+  product.stock = isNaN(Number(product.stock)) ? 0 : Number(product.stock);
+  product.price = isNaN(Number(product.price)) ? 0 : Number(product.price);
 
   if (product.id) {
-    // Update
     return updateProduct(product);
   }
+
+  throw new Error('Creación de productos no implementada');
 };
 
 const updateProduct = async (product: Partial<Product>) => {
