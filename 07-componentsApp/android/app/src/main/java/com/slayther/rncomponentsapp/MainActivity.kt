@@ -1,4 +1,4 @@
-package com.componentsapp
+package com.slayther.rncomponentsapp
 
 import android.os.Bundle;
 
