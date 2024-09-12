@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@ui-kitten/components';
 import {MainLayout} from '../../layouts/MainLayout';
-import {useMutation, useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {getProductById} from '../../../actions/products/get-product-by-id';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParam} from '../../navigation/StackNavigator';
@@ -34,6 +34,8 @@ export const ProductScreen = ({route}: Props) => {
 
   const productIdRef = useRef(route.params.productId);
 
+  const queryClient = useQueryClient();
+
   const {data: product, isLoading} = useQuery({
     queryKey: ['product', productIdRef.current],
     queryFn: () => getProductById(productIdRef.current),
@@ -42,7 +44,11 @@ export const ProductScreen = ({route}: Props) => {
   const mutation = useMutation({
     mutationFn: (data: Product) =>
       updateCreateProduct({...data, id: productIdRef.current}),
-    onSuccess(data: Product) {},
+    onSuccess(data: Product) {
+      productIdRef.current = data.id;
+      queryClient.invalidateQueries({queryKey: ['products', 'infinite']});
+      queryClient.invalidateQueries({queryKey: ['product', data.id]});
+    },
   });
 
   if (!product || isLoading) {
