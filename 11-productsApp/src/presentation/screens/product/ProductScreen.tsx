@@ -68,7 +68,8 @@ export const ProductScreen = ({route}: Props) => {
           subtitle={`Precio: ${values.price}`}
           rightActionIcon="camara-outline"
           rightAction={async () => {
-            const photos = await CamaraAdapter.takePicture();
+            // const photos = await CamaraAdapter.takePicture();
+            const photos = await CamaraAdapter.getPicturesFromLibrary();
             setFieldValue('images', [...values.images, ...photos]);
           }}>
           <ScrollView style={{flex: 1}}>
