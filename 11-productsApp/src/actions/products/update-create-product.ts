@@ -6,11 +6,11 @@ export const updateCreateProduct = (product: Partial<Product>) => {
   product.stock = isNaN(Number(product.stock)) ? 0 : Number(product.stock);
   product.price = isNaN(Number(product.price)) ? 0 : Number(product.price);
 
-  if (product.id) {
+  if (product.id && product.id !== 'new') {
     return updateProduct(product);
   }
 
-  throw new Error('Creación de productos no implementada');
+  return createProduct(product);
 };
 
 const updateProduct = async (product: Partial<Product>) => {
@@ -30,6 +30,26 @@ const updateProduct = async (product: Partial<Product>) => {
       console.log(error.response?.data);
     }
     throw new Error('Error updating product');
+  }
+};
+
+const createProduct = async (product: Partial<Product>): Promise<Product> => {
+  const {id, images = [], ...rest} = product;
+
+  try {
+    const checkedImages = prepareImages(images);
+
+    const {data} = await tesloApi.post(`/products/`, {
+      images: checkedImages,
+      ...rest,
+    });
+
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.log(error.response?.data);
+    }
+    throw new Error('Error creating product');
   }
 };
 

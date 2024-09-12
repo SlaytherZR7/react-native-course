@@ -13,7 +13,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParam} from '../../navigation/StackNavigator';
 import {FullScreenLoader} from '../../components/ui/FullScreenLoader';
 import {ScrollView} from 'react-native-gesture-handler';
-import {FlatList} from 'react-native';
+import {FlatList, Image} from 'react-native';
 import {FadeInImage} from '../../components/ui/FadeInImage';
 import {
   Gender,
@@ -64,19 +64,31 @@ export const ProductScreen = ({route}: Props) => {
       {({handleChange, handleSubmit, values, errors, setFieldValue}) => (
         <MainLayout title={values.title} subtitle={`Precio: ${values.price}`}>
           <ScrollView style={{flex: 1}}>
-            <Layout>
-              <FlatList
-                data={values.images}
-                keyExtractor={item => item}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={({item}) => (
-                  <FadeInImage
-                    uri={item}
-                    style={{width: 300, height: 300, marginHorizontal: 7}}
-                  />
-                )}
-              />
+            <Layout
+              style={{
+                marginVertical: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {values.images.length === 0 ? (
+                <Image
+                  source={require('../../../assets/no-product-image.png')}
+                  style={{width: 300, height: 300}}
+                />
+              ) : (
+                <FlatList
+                  data={values.images}
+                  keyExtractor={item => item}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({item}) => (
+                    <FadeInImage
+                      uri={item}
+                      style={{width: 300, height: 300, marginHorizontal: 7}}
+                    />
+                  )}
+                />
+              )}
             </Layout>
             {/* Formulario */}
             <Layout style={{marginHorizontal: 20}}>

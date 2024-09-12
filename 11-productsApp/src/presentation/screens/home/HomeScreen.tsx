@@ -3,9 +3,13 @@ import {getProductsByPage} from '../../../actions/products/get-products-by-page'
 import {MainLayout} from '../../layouts/MainLayout';
 import {FullScreenLoader} from '../../components/ui/FullScreenLoader';
 import {ProductList} from '../../components/products/ProductList';
-import {all} from 'axios';
+import {FAB} from '../../components/ui/FAB';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParam} from '../../navigation/StackNavigator';
 
 export const HomeScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParam>>();
+
   // const {isLoading, data: products = []} = useQuery({
   //   queryKey: ['producrs', 'infinite'],
   //   staleTime: 1000 * 60 * 60,
@@ -23,17 +27,24 @@ export const HomeScreen = () => {
     getNextPageParam: (_, allPages) => allPages.length,
   });
   return (
-    <MainLayout
-      title="TesloShop - Products"
-      subtitle="Aplicación administrativa">
-      {isLoading ? (
-        <FullScreenLoader />
-      ) : (
-        <ProductList
-          products={data?.pages.flat() ?? []}
-          fetchNextPage={fetchNextPage}
-        />
-      )}
-    </MainLayout>
+    <>
+      <MainLayout
+        title="TesloShop - Products"
+        subtitle="Aplicación administrativa">
+        {isLoading ? (
+          <FullScreenLoader />
+        ) : (
+          <ProductList
+            products={data?.pages.flat() ?? []}
+            fetchNextPage={fetchNextPage}
+          />
+        )}
+      </MainLayout>
+      <FAB
+        iconName="plus-outline"
+        onPress={() => navigation.navigate('ProductScreen', {productId: 'new'})}
+        style={{position: 'absolute', bottom: 30, right: 20}}
+      />
+    </>
   );
 };
