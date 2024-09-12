@@ -62,7 +62,11 @@ export const ProductScreen = ({route}: Props) => {
   return (
     <Formik initialValues={product} onSubmit={mutation.mutate}>
       {({handleChange, handleSubmit, values, errors, setFieldValue}) => (
-        <MainLayout title={values.title} subtitle={`Precio: ${values.price}`}>
+        <MainLayout
+          title={values.title}
+          subtitle={`Precio: ${values.price}`}
+          rightActionIcon="camara-outline"
+          rightAction={() => {}}>
           <ScrollView style={{flex: 1}}>
             <Layout
               style={{
